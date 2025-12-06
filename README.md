@@ -6,8 +6,9 @@ A robust, "human-like" JavaScript tool to automate endorsing skills on LinkedIn.
 
 - **🛡️ Bot-Safe Delays**: Uses randomized human-like intervals between clicks (800ms - 2.5s) to avoid rate limiting.
 - **👀 Visual Status Box**: Adds a floating overlay to the bottom-right of your screen so you can track progress without keeping the console open.
+- **🔍 Smart Scroll Search**: Automatically scrolls down to find missing or virtualization-hidden skills if it hits a "gap" in the list.
+- **🧹 Auto-Cleanup**: The status box automatically fades out and removes itself from the page after completion.
 - **🔄 Smart Re-Query**: Automatically handles LinkedIn's dynamic DOM updates (stale element references) by finding the next button freshly each time.
-- **📜 Auto-Scroll**: Smoothly scrolls to each skill before clicking.
 
 ## How to Use
 

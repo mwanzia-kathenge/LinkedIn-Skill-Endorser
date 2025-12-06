@@ -13,7 +13,7 @@
     const MIN_DELAY = 800;
     const MAX_DELAY = 2200;
     const MAX_NO_BUTTONS_ATTEMPTS = 3;
-    const REPO_ISSUES_URL = "https://github.com/YOUR_USERNAME/linkedin-skill-endorser/issues"; // 🔴 REPLACE THIS!
+    const REPO_ISSUES_URL = "https://github.com/ExceptedPrism3/LinkedIn-Skill-Endorser/issues";
 
     // --- DOM Helpers ---
     function createStatusBox() {
