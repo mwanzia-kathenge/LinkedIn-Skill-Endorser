@@ -1,5 +1,5 @@
 /**
- * LinkedIn Skill Endorser - Robust Human-Like Version (v3.8)
+ * LinkedIn Skill Endorser - Robust Human-Like Version (v1.2)
  * 
  * features:
  * - Async/Await & Random Delays
