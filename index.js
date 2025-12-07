@@ -1,10 +1,10 @@
 /**
- * LinkedIn Skill Endorser - Robust Human-Like Version (v1.0)
+ * LinkedIn Skill Endorser - Robust Human-Like Version (v3.8)
  * 
  * features:
  * - Async/Await & Random Delays
  * - Smart Scroll Search
- * - Status UI (Clean cleanup)
+ * - Status UI (Clean cleanup + Animations)
  * - Stubborn Button Retry (Try 3x before skipping)
  */
 (async function () {
@@ -17,15 +17,46 @@
 
     // --- DOM Helpers ---
     function createStatusBox() {
+        // ID check to prevent duplicates if re-pasted
+        const existing = document.getElementById('li-endorser-status');
+        if (existing) existing.remove();
+
         const box = document.createElement('div');
         box.id = 'li-endorser-status';
-        Object.assign(box.style, {
-            position: 'fixed', bottom: '20px', right: '20px', padding: '15px 20px',
-            background: '#1a1a1a', color: '#fff', borderRadius: '8px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)', zIndex: '9999',
-            fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: '14px',
-            transition: 'opacity 1s ease', minWidth: '200px' // 1s slow fade
-        });
+
+        // Inject Styles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes pulse-ring {
+                0% { box-shadow: 0 0 0 0 rgba(77, 166, 255, 0.4); }
+                70% { box-shadow: 0 0 0 10px rgba(77, 166, 255, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(77, 166, 255, 0); }
+            }
+            @keyframes dot-blink {
+                0% { content: '.'; }
+                33% { content: '..'; }
+                66% { content: '...'; }
+                100% { content: ''; }
+            }
+            .li-status-box {
+                position: fixed; bottom: 20px; right: 20px; padding: 15px 20px;
+                background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px);
+                color: #fff; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 9999;
+                font-family: system-ui, -apple-system, sans-serif; font-size: 14px;
+                transition: opacity 1s ease; min-width: 220px;
+            }
+            .li-anim-pulse {
+                animation: pulse-ring 2s infinite;
+            }
+            .li-dots::after {
+                content: ''; display: inline-block; width: 12px;
+                animation: dot-blink 1.5s steps(1) infinite;
+            }
+        `;
+        document.head.appendChild(style);
+
+        box.className = 'li-status-box li-anim-pulse';
 
         box.innerHTML = `
             <div id="li-status-text" style="margin-bottom: 8px; font-weight: 600;">🚀 Endorser Starting...</div>
@@ -51,10 +82,9 @@
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const randomDelay = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-    // --- Logic d nami ---
+    // --- Logic ---
 
     function getAllEndorseButtons() {
-        // Find buttons that say "Endorse"  excluding ones we tried to many times
         const allButtons = Array.from(document.querySelectorAll('button, .artdeco-button'));
         return allButtons.filter(button => {
             if (button.offsetParent === null) return false;
@@ -85,26 +115,29 @@
     let noButtonAttempts = 0;
 
     while (true) {
-        // Re find 
+        // Re-find 
         const currentButtons = getAllEndorseButtons();
-        const btn = currentButtons[0]; // grab the first available one
+        const btn = currentButtons[0];
 
         if (!btn) {
-            // No buttons visible? Let's verify if we can scroll down to find more.
             if (isAtBottom()) {
                 noButtonAttempts++;
                 updateStatus("Reaching end...", `Checking for missed items (${noButtonAttempts}/${MAX_NO_BUTTONS_ATTEMPTS})`);
             } else {
-                // Not at bottom yet, scroll down looking for more
-                noButtonAttempts = 0; // Reset attempts since we found "more page" to explore
-                updateStatus("Searching...", "Scrolling down for more skills...");
+                noButtonAttempts = 0;
+                updateStatus("Searching...", "Scrolling down for more skills<span class='li-dots'></span>");
                 window.scrollBy({ top: 600, behavior: 'smooth' });
                 await wait(1500);
-                continue; // retry loop immediately after scroll
+                continue;
             }
 
             if (noButtonAttempts >= MAX_NO_BUTTONS_ATTEMPTS) {
                 updateStatus(`✅ <strong>Done!</strong>`, `Endorsed ${endorsedCount} skills locally.`);
+
+                // Stop animation
+                const box = document.getElementById('li-endorser-status');
+                if (box) box.classList.remove('li-anim-pulse');
+
                 break;
             }
             await wait(2000);
@@ -116,11 +149,10 @@
         try {
             endorsedCount++;
 
-            // Increment local attempt counter on element
             const attempts = parseInt(btn.dataset.liAttempts || 0);
             const isRetry = attempts > 0;
 
-            updateStatus(`<strong>⚡ Endorsing...</strong>`, `Skill #${endorsedCount} ${isRetry ? `(Retry ${attempts + 1})` : ""}`);
+            updateStatus(`<strong>⚡ Endorsing<span class="li-dots"></span></strong>`, `Skill #${endorsedCount} ${isRetry ? `(Retry ${attempts + 1})` : ""}`);
 
             btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -128,15 +160,10 @@
             await wait(thinkTime);
 
             if (btn.isConnected) {
-                // Track update
                 btn.dataset.liAttempts = attempts + 1;
-
                 btn.click();
                 console.log(`[#${endorsedCount}] Clicked ${isRetry ? `(Retry ${attempts + 1})` : ""}`);
-
-                // Double verification: Sometimes click needs focus
                 if (document.activeElement !== btn) btn.focus();
-
             } else {
                 console.warn("Element stale, retrying...");
                 endorsedCount--;
@@ -155,14 +182,11 @@
     setTimeout(() => {
         const box = document.getElementById('li-endorser-status');
         if (box) {
-            // 1. Start fade out
             box.style.opacity = '0';
-
-            // 2. Remove from DOM after fade completes (1s transition etc... )
             setTimeout(() => {
                 if (box) box.remove();
             }, 1000);
         }
-    }, 4000); // Wait 4s so they can see "Done" then DIE!
+    }, 4000);
 
 })();
