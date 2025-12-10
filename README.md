@@ -2,7 +2,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-f7df1e?logo=javascript&logoColor=black)
-![Version](https://img.shields.io/badge/Version-v1.2-blue)
+![Version](https://img.shields.io/github/package-json/v/ExceptedPrism3/LinkedIn-Skill-Endorser?filename=package.json&color=blue)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 
 A robust, "human-like" JavaScript tool to automate endorsing skills on LinkedIn. It is designed to run in the browser console, handling dynamic loading, scrolling, and avoiding bot detection mechanisms by using random delays.
